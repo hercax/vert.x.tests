@@ -1,15 +1,21 @@
 var eb = vertx.eventBus;
 var messages = [];
-var messageExample = {
-	user: "hercax",
-	timestamp: new Date(),
-	message: "Hi everyone!"
-}
+var users = [];
 
-eb.registerHandler("hercaxbus.chat.sendMessage", function(message, replier) {
+eb.registerHandler('hercaxbus.chat.sendMessage', function(message) {
 	messages.push(message);
 
-	var sortedMessages = _.sortBy(messages, function (msg) { return 'timestamp'; });
+	var sortedMessages = _.last(_.sortBy(messages, function (msg) { return 'timestamp'; }), 10);
 
-	eb.send("hercaxbus.chat.newMessages", {messages: sortedMessages}, null);
+	eb.send('hercaxbus.chat.newMessages', {messages: sortedMessages}, null);
+});
+
+eb.registerHandler('hercaxbus.chat.login', function(message) {
+	users.push(message);
+
+	stdout.println(message);
+
+	var sortedUsers = _.sortBy(users, function (usr) { return 'nickname'});
+
+	eb.send('hercaxbus.chat.userJoined', {users: sortedUsers}, null);
 });

@@ -3,3 +3,17 @@ body {
 	padding-left:20px;
 	padding-right:20px;
 }
+
+#chatPane {
+	background-color:white;
+	border:2px solid #eee;
+	margin-bottom:5px;
+	padding:5px 5px 5px 5px;
+}
+
+#usersPane {
+	background-color:white;
+	border:2px solid #eee;
+	margin-bottom:5px;
+	padding:5px 5px 5px 5px;
+}
